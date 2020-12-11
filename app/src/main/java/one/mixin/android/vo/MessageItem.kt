@@ -131,7 +131,7 @@ fun create(type: String, createdAt: String? = null) = MessageItem(
 fun MessageItem.canNotReply() =
     this.type == MessageCategory.SYSTEM_ACCOUNT_SNAPSHOT.name ||
         this.type == MessageCategory.SYSTEM_CONVERSATION.name ||
-        (!mediaDownloaded(this.mediaStatus) && this.isMedia()) ||
+        unfinishedAttachment() ||
         isCallMessage() || isRecall()
 
 fun MessageItem.isCallMessage() =
