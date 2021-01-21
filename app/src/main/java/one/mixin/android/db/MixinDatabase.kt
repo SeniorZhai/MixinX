@@ -37,14 +37,10 @@ import one.mixin.android.db.MixinDatabaseMigrations.Companion.MIGRATION_33_34
 import one.mixin.android.db.MixinDatabaseMigrations.Companion.MIGRATION_34_35
 import one.mixin.android.db.MixinDatabaseMigrations.Companion.MIGRATION_35_36
 import one.mixin.android.db.MixinDatabaseMigrations.Companion.MIGRATION_37_38
-
-<<<<<<< HEAD
 import one.mixin.android.db.MixinDatabaseMigrations.Companion.MIGRATION_36_37
 import one.mixin.android.util.GsonHelper
 import one.mixin.android.util.debug.getContent
 import one.mixin.android.util.reportException
-=======
->>>>>>> f3a14daed (Support store key-value in DB)
 import one.mixin.android.vo.Address
 import one.mixin.android.vo.App
 import one.mixin.android.vo.Asset
