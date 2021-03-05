@@ -38,6 +38,7 @@ import one.mixin.android.extension.getFilePath
 import one.mixin.android.extension.nowInUtc
 import one.mixin.android.extension.postOptimize
 import one.mixin.android.extension.putString
+import one.mixin.android.extension.toByteArray
 import one.mixin.android.job.BaseJob.Companion.PRIORITY_SEND_ATTACHMENT_MESSAGE
 import one.mixin.android.session.Session
 import one.mixin.android.util.ColorUtil
@@ -45,7 +46,6 @@ import one.mixin.android.util.GsonHelper
 import one.mixin.android.util.MessageFts4Helper
 import one.mixin.android.util.hyperlink.parsHyperlink
 import one.mixin.android.util.mention.parseMentionData
-import one.mixin.android.util.reportException
 import one.mixin.android.vo.AppButtonData
 import one.mixin.android.vo.AppCardData
 import one.mixin.android.vo.CircleConversation
@@ -754,8 +754,9 @@ class DecryptMessage(private val lifecycleScope: CoroutineScope) : Injector() {
 
     private fun processEncryptedMessage(data: BlazeMessageData) {
         val privateKey = Session.getEd25519PrivateKey() ?: return
+        val sessionId = Session.getSessionId() ?: return
         try {
-            val decryptedContent = encryptedProtocol.decryptMessage(privateKey, data.data.decodeBase64())
+            val decryptedContent = encryptedProtocol.decryptMessage(privateKey, UUID.fromString(sessionId).toByteArray(), data.data.decodeBase64())
             val plaintext = String(decryptedContent)
             try {
                 processDecryptSuccess(data, plaintext)

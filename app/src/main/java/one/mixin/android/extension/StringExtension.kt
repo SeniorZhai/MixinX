@@ -19,6 +19,7 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.google.zxing.qrcode.encoder.ByteMatrix
 import com.google.zxing.qrcode.encoder.Encoder
+import okhttp3.internal.and
 import okio.Buffer
 import okio.ByteString
 import okio.GzipSink
@@ -261,6 +262,10 @@ fun toLeByteArray(v: UInt): ByteArray {
     b[0] = v.toByte()
     b[1] = (v shr 8).toByte()
     return b
+}
+
+fun leByteArraytoInt(bytes: ByteArray): Int {
+    return bytes[0].toInt() + bytes[1].toInt()
 }
 
 fun UUID.toByteArray(): ByteArray {
