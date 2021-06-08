@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 38,
-    "identityHash": "8229783050588c04b3861f9b4f35d97d",
+    "identityHash": "2cba3f2bdff351432c822a5ca0dc459a",
     "entities": [
       {
         "tableName": "users",
@@ -220,6 +220,15 @@
           "autoGenerate": false
         },
         "indices": [
+          {
+            "name": "index_conversations_pin_time_last_message_created_at",
+            "unique": false,
+            "columnNames": [
+              "pin_time",
+              "last_message_created_at"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_conversations_pin_time_last_message_created_at` ON `${TABLE_NAME}` (`pin_time`, `last_message_created_at`)"
+          },
           {
             "name": "index_conversations_category_status_pin_time_created_at",
             "unique": false,
@@ -448,27 +457,6 @@
             "createSql": "CREATE INDEX IF NOT EXISTS `index_messages_conversation_id_created_at` ON `${TABLE_NAME}` (`conversation_id`, `created_at`)"
           },
           {
-            "name": "index_messages_conversation_id_user_id_status_created_at",
-            "unique": false,
-            "columnNames": [
-              "conversation_id",
-              "user_id",
-              "status",
-              "created_at"
-            ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_messages_conversation_id_user_id_status_created_at` ON `${TABLE_NAME}` (`conversation_id`, `user_id`, `status`, `created_at`)"
-          },
-          {
-            "name": "index_messages_conversation_id_status_user_id",
-            "unique": false,
-            "columnNames": [
-              "conversation_id",
-              "status",
-              "user_id"
-            ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_messages_conversation_id_status_user_id` ON `${TABLE_NAME}` (`conversation_id`, `status`, `user_id`)"
-          },
-          {
             "name": "index_messages_conversation_id_category",
             "unique": false,
             "columnNames": [
@@ -485,6 +473,17 @@
               "quote_message_id"
             ],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_messages_conversation_id_quote_message_id` ON `${TABLE_NAME}` (`conversation_id`, `quote_message_id`)"
+          },
+          {
+            "name": "index_messages_conversation_id_status_user_id_created_at",
+            "unique": false,
+            "columnNames": [
+              "conversation_id",
+              "status",
+              "user_id",
+              "created_at"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_messages_conversation_id_status_user_id_created_at` ON `${TABLE_NAME}` (`conversation_id`, `status`, `user_id`, `created_at`)"
           }
         ],
         "foreignKeys": [
@@ -1869,7 +1868,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8229783050588c04b3861f9b4f35d97d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2cba3f2bdff351432c822a5ca0dc459a')"
     ]
   }
 }
